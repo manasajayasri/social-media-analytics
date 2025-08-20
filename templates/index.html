@@ -1,0 +1,23 @@
+\
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Social Analytics Starter</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    
+  </head>
+  <body>
+    <div class="container">
+      <h1>Social Media Analytics</h1>
+      <p>Check your Youtube Analytics Now</p>
+      <a class="btn" href="{{ url_for('youtube_form') }}"
+        >YouTube Dashboard →</a
+      >
+    </div>
+  </body>
+</html>

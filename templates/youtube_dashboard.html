@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YouTube Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__glass">
+        {% if channel.channel_avatar %}
+        <img
+          class="avatar"
+          src="{{ channel.channel_avatar }}"
+          alt="Channel avatar"
+        />
+        {% endif %}
+        <div class="hero__meta">
+          <h1>{{ channel.channel_title }}</h1>
+          <p class="muted">
+            Fresh snapshot of uploads · powered by YouTube Data API
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <span>{{ "{:,}".format(channel.subscribers) }}</span
+              ><label>Subscribers</label>
+            </div>
+            <div class="stat">
+              <span>{{ "{:,}".format(channel.views) }}</span
+              ><label>Total Views</label>
+            </div>
+            <div class="stat">
+              <span>{{ "{:,}".format(channel.total_videos) }}</span
+              ><label>Total Videos</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="grid">
+        <div class="card">
+          <h3>Top 10 Videos by Views</h3>
+          <div id="bar" style="height: 420px"></div>
+        </div>
+        <div class="card">
+          <h3>Views Over Time</h3>
+          <div id="line" style="height: 420px"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Recent Videos (Top 50 by views)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Video</th>
+                <th>Published</th>
+                <th>Views</th>
+                <th>Likes</th>
+                <th>Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in table %}
+              <tr>
+                <td>
+                  <div class="video-cell">
+                    {% if row.thumbnail %}
+                    <img class="thumb" src="{{ row.thumbnail }}" alt="" />
+                    {% endif %}
+                    <a
+                      target="_blank"
+                      href="https://www.youtube.com/watch?v={{ row.video_id }}"
+                      title="{{ row.title }}"
+                    >
+                      {{ row.title }}
+                    </a>
+                  </div>
+                </td>
+                <td>{{ row.published_at }}</td>
+                <td>{{ "{:,}".format(row.views) }}</td>
+                <td>{{ "{:,}".format(row.likes) }}</td>
+                <td>{{ "{:,}".format(row.comments) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="muted small">
+        <a href="{{ url_for('youtube_form') }}">← Try another channel</a>
+      </p>
+    </main>
+
+    <script>
+      // bar
+      Plotly.newPlot('bar', [{
+        type:'bar', x: {{ chart_values|tojson }}, y: {{ chart_labels|tojson }}, orientation:'h',
+        hovertemplate:'%{y}<br>%{x:,} views<extra></extra>'
+      }], {margin:{l:200,r:20,t:10,b:40}}, {displayModeBar:false});
+
+      // line
+      Plotly.newPlot('line', [{
+        type:'scatter', mode:'lines+markers',
+        x: {{ chart2_dates|tojson }}, y: {{ chart2_views|tojson }},
+        hovertemplate:'%{x}<br>%{y:,} views<extra></extra>'
+      }], {margin:{l:40,r:20,t:10,b:40}}, {displayModeBar:false});
+    </script>
+  </body>
+</html>
