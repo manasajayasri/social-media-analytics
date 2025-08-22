@@ -20,6 +20,18 @@ body {
   color: var(--fg);
 }
 
+.flash {
+  background: #111217;
+  border: 1px solid #374151;
+  color: #fca5a5;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 12px 0;
+}
+.flash__item + .flash__item {
+  margin-top: 6px;
+}
+
 .container {
   max-width: 1100px;
   margin: 24px auto 40px;
