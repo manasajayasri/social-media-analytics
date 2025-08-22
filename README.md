@@ -1,6 +1,6 @@
 # Social Media Analytics (Python 3.12+)
 
-A minimal Flask app to analyze **YouTube** channels with the YouTube Data API v3.
+A minimal Flask app to analyze **YouTube** channels with the YouTube Data API v3. (Future plans to display IG, X analytics :))
 
 ## What’s inside
 
