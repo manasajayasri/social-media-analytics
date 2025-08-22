@@ -11,7 +11,10 @@ A minimal Flask app to analyze **YouTube** channels with the YouTube Data API v3
 - Modern, Py3.12-friendly deps; secrets via `.env`
 
 ## Youtube Analytics:
-<img width="1442" height="886" alt="YT" src="https://github.com/user-attachments/assets/6a9ac435-5c83-49b1-89fb-a2ebbd08501a" />
+<img width="1000" height="892" alt="image" src="https://github.com/user-attachments/assets/6498550d-ce4f-44fa-8184-61edb90869bf" />
+
+## X Analytics:
+<img width="1000" height="892" alt="image" src="https://github.com/user-attachments/assets/8cd70e7a-458e-40bf-8dde-46dc8fed9667" />
 
 ## Quickstart
 
